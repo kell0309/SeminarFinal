@@ -1,17 +1,19 @@
 Package: final
 Type: Package
-Title: What the Package Does (Title Case)
+Title: RNA sequence and DEG and enrichment package
 Version: 0.1.0
 Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+    person("Khalif", "Hussein", email = "a23khahu@student.his.se", role = c("aut", "cre")),
+    person("Edzhe ", "Chetin", email = "a23ecece@student.his.se", role = "aut")
+))
+Description: Help user with functions for RNA sequencing and enrichment of deg using enrichGO and enrichKegg with excel and dot plots produced
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
+Imports:
+    edgeR,
+    clusterProfiler,
+    enrichplot,
+    org.Hs.eg.db,
+    openxlsx
