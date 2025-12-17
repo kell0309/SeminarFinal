@@ -1,0 +1,47 @@
+---
+title: "final/Viginette"
+author: "Khalif Hussein"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+This rmarkdown provides information of the package where its functions for filtering lowly expressed genes and running GO/Kegg enrichments, together with plotting the results and exporting tables.
+
+
+ 
+ ## Overview
+This package provides a small RNA-seq workflow:
+1) load counts + sample metadata,
+2) filter low expression (edgeR),
+3) run differential expression (edgeR),
+4) run GO/KEGG enrichment (clusterProfiler),
+5) plot enrichment results (enrichplot),
+6) export DEG table to Excel (openxlsx).
+
+
+# 1. Load samples
+counts  <- load.file(txt.file)
+samples  <- load.file (txt.file)
+
+# 2. Filter low expression
+flt <- filter_low_expression(counts, samples, group_col = "disease")
+
+#  3. Differential expression
+deg <- run_deg(flt$dge, flt$samples, group_col = "disease", ref_level = "normal")i 
+head(deg)
+# 4. GO and Kegg enrichment 
+enr <- run_enrichment_go_kegg(deg, use_only_pass = TRUE, kegg_organism = "hsa", show_top = 10)
+
+# 5. plot enrichment 
+ Plots
+plot_enrichment(enr$go,   type = "dotplot", showCategory = 10)
+plot_enrichment(enr$kegg, type = "dotplot", showCategory = 10)
+
+# 6. Export DEG results to excel 
+export_deg_excel(deg, out_xlsx = "DEG_results.xlsx")
+

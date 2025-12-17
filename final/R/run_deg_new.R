@@ -13,7 +13,7 @@
 #' @return A data.frame containing differential expression results and a logical column
 #' indicating whether each gene passes the specified thresholds.
 
-
+#' @export
 
 run_deg <- function(dge, samples,
                     group_col = "disease",

@@ -1,13 +1,15 @@
 #'Filters lowly expressed genes and creates a normalised list using edgeR and DGElist
 
-#' #´@description
+#' @description
 #' This code aligns the sample metadata and the count matrix, also removes lowly expressed genes.
 #'
 #' @param counts A data frame of raw counts
-#' @samples a data frame with sample table
-#' @group col a column names with in samples
+#' @param samples a data frame with sample table
+#' @param group_col a column names with in samples
 
-#' @return
+#' @return a list of filtered expression from samples
+#' @export
+#'
 filter_low_expression <- function(counts, samples, group_col = "disease") {
   samples <- samples[match(colnames(counts), samples$sample), ]
   group <- samples[[group_col]]

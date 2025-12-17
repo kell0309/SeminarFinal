@@ -6,6 +6,7 @@
 #'  @param counts_path It paths to the counts file.
 #'
 #'  @return A numeric matrix of counts with genes as rownames and samples IDs as a colnames.
+#'  @export
 
 
 load_counts <- function(counts_path) {

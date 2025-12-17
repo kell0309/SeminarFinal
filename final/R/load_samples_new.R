@@ -6,6 +6,8 @@
 #' @param sample_path It pats to the sample table
 #'
 #' @return A data.frame contains sample annotations.
+#'
+#' @export
 
 
 load_samples <- function(samples_path) {

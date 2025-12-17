@@ -1,3 +1,5 @@
+#' Enrichemt script for kegg
+#'
 #' @description
 #' Takes a differential expression table  selects the  genes
 #' runs GO  enrichment and KEGG pathway enrichment, and returns the results
@@ -7,6 +9,7 @@
 #' @param show_top Number of top categories to show in downstream plotting
 #'
 #' @return A list with Go enrichment results, kegg enrichment results, id maps from SYMBOL to ENTREZID, Show_top for top 10 value from kegg
+#' @export
 run_enrichment_go_kegg <- function(deg_table,
                                    use_only_pass = TRUE,
                                    kegg_organism = "hsa",
