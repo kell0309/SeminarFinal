@@ -1,0 +1,93 @@
+---
+title: "User manual for RNA- seq pipeline"
+author: "Khalif and Ezdche"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction and overview
+
+welcome to this user manual what will show you how to run the package on
+your local machine. This package has a few functions written in small R
+scripts that will divide your work into steps.
+
+This package implements a small RNA-seq workflow:
+
+Load a counts matrix and sample metadata *Filter lowly expressed genes
+and normalise* Differential expression testing *Export results to Excel*
+GO enrichment + KEGG enrichment \*Plot enrichment results
+
+## 1) install the package
+
+The first step is to install devtools
+
+```{r}
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+devtools::install_github("kell0309/SeminarFinal/final")
+```
+
+## 2) Ensure input the text files are available
+
+To make sure that the counts and samples are available which is needed
+for this analysis you need to 2 delimited text files.
+
+Counts file (e.g. E-MTAB-2523.counts.txt) --Must include a column named
+Gene --Remaining columns should be sample IDs (counts) Sample table
+(e.g. E-MTAB-2523_sample table.txt) --Must include a column sample that
+matches colnames(counts) --Must include the grouping column (example:
+disease)
+
+An example is how we used the test data text files found in the folder
+*test/scripts* there should you see two fils
+
+```{r}
+counts  <- load_counts("E-MTAB-2523.counts.txt")
+samples <- load_samples("E-MTAB-2523_sample table.txt")
+```
+
+## 3) Load and install required libraries
+
+The next now is to download the required libraries and softwares and
+dependencies required which can be found in the script called using the
+the prompt below or can you open the script itself in run and run it
+directly on your environment
+
+```{r}
+source("R/load_packages.R")
+```
+
+That will either download or update all the libraries and dependicies
+needed
+
+## 4) Running the functions
+
+This next step is to run all the functions in the packages in order: 1.
+load_counts.R 2. load_samples_new.R 3. filter_low_expressions.R 4.
+run_deg_new.R 5. Enrichtment_kegg.R 6. enrichment_plot.R 7.
+excel_table.R
+
+## 5) Run the full pipeline script
+
+In the folder *SeminarFinal/final/test/scripts* there will you find an R
+script that will run all the funtions when they are loaded in the R
+studio console
+
+## 6) Output files
+
+the files outputed from this will be Output files --DEG_results.xlsx
+(excel table of DEG results) --Enrichment plots generated in the R
+plotting terminal of KEGG and GO
