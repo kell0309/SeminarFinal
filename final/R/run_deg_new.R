@@ -21,17 +21,21 @@ run_deg <- function(dge, samples,
                     fdr_cutoff = 0.05,
                     logfc_cutoff = 1) {
 
+  # Define the grouping factor
   grp <- factor(samples[[group_col]])
   grp <- relevel(grp, ref = ref_level)
 
+  # Build the design matrix for the model
   design <- model.matrix(~ grp)
   dge <- estimateDisp(dge, design)
   fit <- glmQLFit(dge, design)
   qlf <- glmQLFTest(fit, coef = 2)
 
+  # Extract all results, add the gene IDS and identify genes passing FDR and the LogFC thresholds
   tab <- topTags(qlf, n = Inf)$table
   tab$gene <- rownames(tab)
   tab$pass <- (tab$FDR <= fdr_cutoff) & (abs(tab$logFC) >= logfc_cutoff)
 
+  # Return a clean reseults table with the key columns
   tab[, c("gene", "logFC", "logCPM", "PValue", "FDR", "pass")]
 }

@@ -15,9 +15,13 @@ run_enrichment_go_kegg <- function(deg_table,
                                    kegg_organism = "hsa",
                                    show_top = 10) {
 
+  # Get the gene list from the DEG table
   genes <- deg_table$gene
+
+  # Restrict to genes that are signficant
   if (use_only_pass) genes <- deg_table$gene[deg_table$pass]
 
+  # Run GO enrich analysis process using gene symbols
   go <- enrichGO(
     gene = genes,
     OrgDb = org.Hs.eg.db,
@@ -27,16 +31,20 @@ run_enrichment_go_kegg <- function(deg_table,
     readable = TRUE
   )
 
+  # Convert gene symbols to Entrez IDs needed for KEGG enrichmment
   conv <- bitr(genes,
                fromType = "SYMBOL",
                toType = "ENTREZID",
                OrgDb = org.Hs.eg.db)
 
+
+  # Run KEGG pathway enrichment using Entrez IDs
   kegg <- enrichKEGG(
     gene = conv$ENTREZID,
     organism = kegg_organism,
     pvalueCutoff = 0.05
   )
 
+  # Return both the enrichments results for GO and KEGG and the ID mappings
   list(go = go, kegg = kegg, id_map = conv, show_top = show_top)
 }

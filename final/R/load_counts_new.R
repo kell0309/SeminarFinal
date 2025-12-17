@@ -10,8 +10,14 @@
 
 
 load_counts <- function(counts_path) {
+
+  # header = TRUE: first row contains column names
+  # check.names = FALSE: keep sample names exactly as they are
   x <- read.table(counts_path, header = TRUE, sep = "\t", check.names = FALSE)
+
+
+  # Set the row names to the gene identifiers from the "Gene" column
   rownames(x) <- x$Gene
   x$Gene <- NULL
-  as.matrix(x)
+  as.matrix(x) #Convert the data frame to a matrix
 }

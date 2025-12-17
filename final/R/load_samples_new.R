@@ -9,9 +9,13 @@
 #'
 #' @export
 
-
 load_samples <- function(samples_path) {
+
+  # header = TRUE: first row contains column names
   s <- read.table(samples_path, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
   s$disease <- factor(s$disease)
+
+
+  # Return the processed sample metadata
   s
 }

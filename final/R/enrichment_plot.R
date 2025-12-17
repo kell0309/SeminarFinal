@@ -14,8 +14,10 @@ plot_enrichment <- function(enrich_result,
                             type = c("dotplot", "cnetplot"),
                             showCategory = 10) {
 
+  # Only allows type to be one of the options
   type <- match.arg(type)
 
+  # choose which enrichment plot to generate
   if (type == "dotplot") {
     dotplot(enrich_result, showCategory = showCategory)
   } else {
